@@ -1,0 +1,47 @@
+﻿@page "/game/{id}"
+@model OddOneOut.Web.Pages.GameModel
+@{
+    ViewData["Title"] = "Game!";
+}
+
+<script type="text/javascript">
+    const share = function() {
+        console.log('wtf');
+        navigator.share( '@Model.Link' );
+    }
+</script>
+
+<div id="app">
+    <div>
+        <img src="data:image/png;base64,@Html.Raw(Model.Qrcode)" height="200" width="200" />
+    </div>
+
+    <div>{{ message }}</div>
+
+    <div>
+        <input type="text" readonly value="@Model.Link" />
+        <button type="button" onclick="share">Share</button>
+    </div>
+</div>
+
+<script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+</script>
+
+<script type="module">
+    import { createApp, ref } from 'vue';
+
+    createApp({
+      setup() {
+        const message = ref('Hello Vue!');
+
+        return {
+          message,
+        };
+      }
+    }).mount('#app');
+</script>
