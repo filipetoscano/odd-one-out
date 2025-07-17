@@ -23,12 +23,22 @@ public class Program
         // Configure the HTTP request pipeline.
         if ( !app.Environment.IsDevelopment() )
             app.UseExceptionHandler( "/Error" );
-        
+
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthorization();
         app.MapRazorPages();
         app.MapControllers();
+
+        app.UseWebSockets( new WebSocketOptions()
+        {
+            AllowedOrigins = { "https://localhost:5051" }
+        } );
+
+
+        /*
+         * 
+         */
         app.Run();
 
 
